@@ -99,6 +99,7 @@ Other:
   integer.c, integer.h                  Michael Niedermayer
   lzo                                   Reimar Doeffinger
   mathematics.c, mathematics.h      [2] Michael Niedermayer
+  mediancut.c, mediancut.h              David Connolly
   mem.c, mem.h                      [2] Michael Niedermayer
   neuquant.c, neuquant.h                David Connolly
   opencl.c, opencl.h                    Wei Gao
