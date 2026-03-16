@@ -166,6 +166,7 @@ OBJS = adler32.o                                                        \
        mem.o                                                            \
        murmur3.o                                                        \
        opt.o                                                            \
+       palette.o                                                        \
        parseutils.o                                                     \
        pixdesc.o                                                        \
        pixelutils.o                                                     \
