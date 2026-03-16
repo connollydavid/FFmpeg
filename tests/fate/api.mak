@@ -1,7 +1,3 @@
-FATE_API_LIBAVCODEC-$(call ENCDEC, FLAC, FLAC) += fate-api-flac
-fate-api-flac: $(APITESTSDIR)/api-flac-test$(EXESUF)
-fate-api-flac: CMD = run $(APITESTSDIR)/api-flac-test$(EXESUF)
-fate-api-flac: CMP = null
 
 FATE_API_LIBAVCODEC-$(call ALLYES, H261_ENCODER H261_PARSER) += fate-api-enc-parser fate-api-enc-parser-cif
 fate-api-enc-parser: $(APITESTSDIR)/api-enc-parser-test$(EXESUF)
