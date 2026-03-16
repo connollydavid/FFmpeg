@@ -237,6 +237,7 @@ Codecs:
   opus*                                 Rostislav Pehlivanov
   pcx.c                                 Ivo van Poorten
   pgssubdec.c                           Reimar Doeffinger
+  pgssubenc.c                           David Connolly
   ptx.c                                 Ivo van Poorten
   qcelp*                                Reynaldo H. Verdejo Pinochet
   qdm2.c, qdm2data.h                    Roberto Togni
