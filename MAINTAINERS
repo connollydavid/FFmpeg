@@ -102,6 +102,7 @@ Other:
   mem.c, mem.h                      [2] Michael Niedermayer
   opencl.c, opencl.h                    Wei Gao
   opt.c, opt.h                          Michael Niedermayer
+  palette.c, palette.h                  David Connolly
   rational.c, rational.h            [2] Michael Niedermayer
   rc4                                   Reimar Doeffinger
   ripemd.c, ripemd.h                    James Almer
