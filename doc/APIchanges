@@ -60,6 +60,9 @@ Add IAMF frame side data types to enum AVFrameSideDataType:
   Add AVDynamicHDRSmpte2094App5 struct and functions.
   Add AV_FRAME_DATA_DYNAMIC_HDR_SMPTE_2094_APP5 side data type.
 
+2026-03-xx - xxxxxxxxxx - lavu 61.5.100 - quantize.h
+  Add AV_QUANTIZE_ELBG.
+
 2026-03-xx - xxxxxxxxxx - lavu 61.3.100 - quantize.h
   Add AV_QUANTIZE_MEDIAN_CUT.
 
