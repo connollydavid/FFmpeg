@@ -32,6 +32,7 @@ Applications
 
 ffmpeg:
   ffmpeg.c                              Michael Niedermayer, Anton Khirnov
+  ffmpeg_dec_sub.c, ffmpeg_dec_sub.h    David Connolly
   ffmpeg_enc_sub.c, ffmpeg_enc_sub.h    David Connolly
 
 ffplay:
