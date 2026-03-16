@@ -101,9 +101,11 @@ Other:
   lzo                                   Reimar Doeffinger
   mathematics.c, mathematics.h      [2] Michael Niedermayer
   mem.c, mem.h                      [2] Michael Niedermayer
+  neuquant.c, neuquant.h                David Connolly
   opencl.c, opencl.h                    Wei Gao
   opt.c, opt.h                          Michael Niedermayer
   palette.c, palette.h                  David Connolly
+  quantize.c, quantize.h                David Connolly
   rational.c, rational.h            [2] Michael Niedermayer
   rc4                                   Reimar Doeffinger
   ripemd.c, ripemd.h                    James Almer
