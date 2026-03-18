@@ -2023,6 +2023,9 @@ const OptionDef options[] = {
         "set canvas size (WxH or abbreviation)", "size" },
 
     /* subtitle OCR options (bitmap-to-text conversion) */
+    { "sub_force_all", OPT_TYPE_INT, OPT_SUBTITLE | OPT_PERSTREAM | OPT_OUTPUT | OPT_EXPERT,
+        { .off = OFFSET(sub_force_all) },
+        "mark all subtitle events forced and set the stream disposition (forwarded to the encoder one-way)", "force" },
     { "sub_quantize_method", OPT_TYPE_INT, OPT_SUBTITLE | OPT_PERSTREAM | OPT_OUTPUT | OPT_EXPERT,
         { .off = OFFSET(sub_quantize_method) },
         "color quantizer for text-to-bitmap conversion (0=NeuQuant, 1=ELBG, 2=Median Cut; encoder default when unset)", "method" },

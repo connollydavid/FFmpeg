@@ -30,6 +30,7 @@
 #include "libavutil/display.h"
 #include "libavutil/eval.h"
 #include "libavutil/frame.h"
+#include "libavutil/opt.h"
 #include "libavutil/intreadwrite.h"
 #include "libavutil/log.h"
 #include "libavutil/mem.h"
@@ -415,7 +416,7 @@ int enc_open(void *opaque, const AVFrame *frame)
             if (!ep->sub_enc)
                 return AVERROR(ENOMEM);
             enc_sub_set_options(ep->sub_enc, ost->sub_quantize_method,
-                                 ost->sub_forced_style);
+                                 ost->sub_force_all, ost->sub_forced_style);
         } else if ((in_props & AV_CODEC_PROP_BITMAP_SUB) &&
                    (out_props & AV_CODEC_PROP_TEXT_SUB)) {
             ep->sub_dec = dec_sub_alloc(ep->sch, ep->sch_idx);
@@ -542,6 +543,33 @@ static int do_subtitle_out(OutputFile *of, OutputStream *ost, AVSubtitle *sub,
 
         if (!check_recording_time(ost, pts, AV_TIME_BASE_Q))
             return AVERROR_EOF;
+
+        /* Propagate stream-level forced disposition to per-rect flags */
+        if (local_sub.num_rects > 0 &&
+            ost->ist && (ost->ist->st->disposition & AV_DISPOSITION_FORCED)) {
+            for (int j = 0; j < local_sub.num_rects; j++)
+                local_sub.rects[j]->flags |= AV_SUBTITLE_FLAG_FORCED;
+        }
+
+        /* The fftools-owned choice mirrors to the stream disposition;
+         * the encoder copy arrives by the one-way forward, never a read. */
+        if (ost->sub_force_all > 0)
+            ost->st->disposition |= AV_DISPOSITION_FORCED;
+
+        /* Filter rects by forced flag if -forced_subs_filter is set */
+        if (ost->forced_subs_filter && local_sub.num_rects > 0) {
+            int want = (ost->forced_subs_filter == SUB_FORCED_ONLY);
+            int j = 0, k;
+            for (k = 0; k < local_sub.num_rects; k++) {
+                int is_forced = !!(local_sub.rects[k]->flags &
+                                   AV_SUBTITLE_FLAG_FORCED);
+                if (is_forced == want)
+                    local_sub.rects[j++] = local_sub.rects[k];
+            }
+            if (j == 0)
+                return 0;  /* no matching rects -- skip event */
+            local_sub.num_rects = j;
+        }
 
         ret = av_new_packet(pkt, subtitle_out_max_size);
         if (ret < 0)

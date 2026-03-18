@@ -59,6 +59,7 @@ struct SubtitleEncContext {
     /* user options, owned here and forwarded to the encoder one-way */
     int quantize_method;
     char *forced_style;
+    int sub_force_all;
     int options_forwarded;    SubRenderContext *render;
 
     Scheduler *sch;
@@ -142,11 +143,12 @@ static int fill_rect_bitmap(AVSubtitleRect *rect,
  */
 
 void enc_sub_set_options(SubtitleEncContext *ctx, int quantize_method,
-                         const char *forced_style)
+                         int force_all, const char *forced_style)
 {
     if (!ctx)
         return;
     ctx->quantize_method = quantize_method;
+    ctx->sub_force_all = force_all;
     av_free(ctx->forced_style);
     ctx->forced_style = forced_style ? av_strdup(forced_style) : NULL;
 }
@@ -442,6 +444,9 @@ static int convert_text_to_bitmap(SubtitleEncContext *ctx,
         if (ctx->quantize_method >= 0)
             av_opt_set_int(ost->enc->enc_ctx->priv_data, "quantize_method",
                            ctx->quantize_method, 0);
+        if (ctx->sub_force_all > 0)
+            av_opt_set_int(ost->enc->enc_ctx->priv_data, "force_all",
+                           ctx->sub_force_all, 0);
         if (ctx->forced_style && ctx->forced_style[0])
             av_opt_set(ost->enc->enc_ctx->priv_data, "forced_style",
                        ctx->forced_style, 0);

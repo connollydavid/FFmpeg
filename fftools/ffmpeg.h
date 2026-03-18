@@ -223,6 +223,7 @@ typedef struct OptionsContext {
     SpecifierOptList canvas_sizes;
     SpecifierOptList sub_ocr_lang;
     SpecifierOptList sub_quantize_method;
+    SpecifierOptList sub_force_all;
     SpecifierOptList sub_forced_style;
     SpecifierOptList sub_ocr_datapath;
     SpecifierOptList sub_ocr_pageseg_mode;
@@ -681,6 +682,7 @@ typedef struct OutputStream {
     /* subtitle conversion options (text-to-bitmap); owned here and
      * forwarded to the encoder one-way, never read back */
     int         sub_quantize_method;
+    int         sub_force_all;
     char       *sub_forced_style;
     char *sub_ocr_datapath;
     int         sub_ocr_pageseg_mode;
