@@ -80,6 +80,7 @@ typedef struct PGSSubEncContext {
     int     ap_interval;      /* Acquisition Point interval (ms), 0=off */
     int     force_all;        /* mark all events as forced */
     double  max_cdb_usage;    /* CDB usage threshold (0.0-1.0), 0=disabled */
+    char   *forced_style;     /* ASS styles to mark as forced (fftools) */
 } PGSSubEncContext;
 
 /**
@@ -814,6 +815,10 @@ static const AVOption options[] = {
       "a warning to maintain decoder model compliance.",
       OFFSET(max_cdb_usage), AV_OPT_TYPE_DOUBLE,
       {.dbl = 0.0}, 0.0, 1.0, SE },
+    { "forced_style", "Comma-separated list of ASS style names whose "
+      "events are marked as forced in the PCS",
+      OFFSET(forced_style), AV_OPT_TYPE_STRING,
+      {.str = NULL}, 0, 0, SE },
     { NULL },
 };
 
