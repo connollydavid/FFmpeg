@@ -1501,6 +1501,10 @@ static int ost_add(Muxer *mux, const OptionsContext *o, enum AVMediaType type,
         opt_match_per_stream_int(ost, &o->sub_quantize_method, oc, st, &qm);
         if (qm >= 0)
             ost->sub_quantize_method = qm;
+        qm = -1;
+        opt_match_per_stream_int(ost, &o->sub_force_all, oc, st, &qm);
+        if (qm >= 0)
+            ost->sub_force_all = qm;
     }
     opt_match_per_stream_str(ost, &o->sub_forced_style, oc, st, &tmp);
     if (tmp)

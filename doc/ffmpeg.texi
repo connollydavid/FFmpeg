@@ -2207,6 +2207,20 @@ option to disable streams individually.
 As an output option, disables subtitle recording i.e. automatic selection or
 mapping of any subtitle stream. For full manual control see the @code{-map}
 option.
+@item -forced_subs_filter[:@var{stream_specifier}] @var{mode} (@emph{output,per-stream})
+Select which subtitle events are encoded, according to their forced flag.
+Forced subtitles are meant to be displayed even when subtitle display is
+otherwise disabled, e.g. for foreign-language dialogue or signs.
+
+Possible values of @var{mode}:
+@table @samp
+@item all
+Encode all subtitle events (default).
+@item forced
+Encode only events marked as forced.
+@item non_forced
+Encode only events not marked as forced.
+@end table
 @end table
 
 @section Advanced Subtitle options
