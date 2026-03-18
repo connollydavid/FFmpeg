@@ -79,3 +79,13 @@ FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-forced
 fate-api-pgs-forced: $(APITESTSDIR)/api-pgs-forced-test$(EXESUF)
 fate-api-pgs-forced: CMD = run $(APITESTSDIR)/api-pgs-forced-test$(EXESUF)
 fate-api-pgs-forced: CMP = null
+
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-palette-delta
+fate-api-pgs-palette-delta: $(APITESTSDIR)/api-pgs-palette-delta-test$(EXESUF)
+fate-api-pgs-palette-delta: CMD = run $(APITESTSDIR)/api-pgs-palette-delta-test$(EXESUF)
+fate-api-pgs-palette-delta: CMP = null
+
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-palette-reuse
+fate-api-pgs-palette-reuse: $(APITESTSDIR)/api-pgs-palette-reuse-test$(EXESUF)
+fate-api-pgs-palette-reuse: CMD = run $(APITESTSDIR)/api-pgs-palette-reuse-test$(EXESUF)
+fate-api-pgs-palette-reuse: CMP = null
