@@ -81,6 +81,7 @@ typedef struct PGSSubEncContext {
     int     force_all;        /* mark all events as forced */
     double  max_cdb_usage;    /* CDB usage threshold (0.0-1.0), 0=disabled */
     char   *forced_style;     /* ASS styles to mark as forced (fftools) */
+    int     quantize_method;  /* color quantizer (0=NeuQuant,1=ELBG,2=MedianCut) */
 } PGSSubEncContext;
 
 /**
@@ -819,6 +820,10 @@ static const AVOption options[] = {
       "events are marked as forced in the PCS",
       OFFSET(forced_style), AV_OPT_TYPE_STRING,
       {.str = NULL}, 0, 0, SE },
+    { "quantize_method", "Color quantization method "
+      "(0=NeuQuant, 1=ELBG, 2=Median Cut)",
+      OFFSET(quantize_method), AV_OPT_TYPE_INT,
+      {.i64 = 0}, 0, 2, SE },
     { NULL },
 };
 
