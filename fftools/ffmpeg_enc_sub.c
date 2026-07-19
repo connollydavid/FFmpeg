@@ -623,6 +623,9 @@ fail:
  * optimal PGS Display Set type for each frame. Format-agnostic:
  * works with any text subtitle format by observing renderer output.
  */
+/* ms; beyond this the animation scan degrades an event to static */
+#define SUB_ANIM_SCAN_MAX_MS 60000
+
 static int do_subtitle_out_animated(SubtitleEncContext *ctx,
                                     OutputFile *of, OutputStream *ost,
                                     AVSubtitle *sub, AVPacket *pkt,
@@ -694,6 +697,14 @@ static int do_subtitle_out_animated(SubtitleEncContext *ctx,
     first_alpha = sub_alpha_sum(rgba0, w0, h0, ls0);
     peak_alpha  = first_alpha;
     peak_time   = start_ms;
+
+    if (duration_ms > SUB_ANIM_SCAN_MAX_MS) {
+        av_log(e, AV_LOG_WARNING,
+               "Subtitle event duration %"PRId64" ms exceeds the %d ms "
+               "animation scan cap; treating as static.\n",
+               duration_ms, SUB_ANIM_SCAN_MAX_MS);
+        duration_ms = 0;
+    }
 
     for (t = start_ms + frame_ms; t <= start_ms + duration_ms;
          t += frame_ms) {
