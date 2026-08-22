@@ -53,7 +53,13 @@
  */
 enum AVQuantizeAlgorithm {
     AV_QUANTIZE_NEUQUANT,    /**< NeuQuant neural-net quantizer (Dekker 1994) */
+    AV_QUANTIZE_MEDIAN_CUT,  /**< Median Cut quantizer (Heckbert 1982) */
 };
+
+/**
+ * Maximum number of regions that can be added per palette generation.
+ */
+#define AV_QUANTIZE_MAX_REGIONS 16
 
 /**
  * Opaque color quantization context, allocated with av_quantize_alloc()
@@ -82,6 +88,28 @@ AVQuantizeContext *av_quantize_alloc(enum AVQuantizeAlgorithm algorithm,
 void av_quantize_freep(AVQuantizeContext **pctx);
 
 /**
+ * Add a region of pixels to the quantization input.
+ *
+ * When regions are added, av_quantize_generate_palette() samples from
+ * all regions in equal proportion, ensuring palette representation
+ * regardless of pixel count.  This prevents large regions from starving
+ * small regions of palette entries.
+ *
+ * If no regions are added, generate_palette() operates on the rgba
+ * buffer passed directly to it (backward compatible).
+ *
+ * The pixel data is copied internally; the caller may free @p rgba
+ * immediately after this call.  Regions are consumed (freed) by the
+ * next call to av_quantize_generate_palette().  Up to
+ * AV_QUANTIZE_MAX_REGIONS regions may be added per generation.
+ *
+ * @param[in] ctx       quantization context
+ * @param[in] rgba      RGBA pixel data for this region (4 bytes per pixel)
+ * @param[in] nb_pixels number of pixels in this region
+ * @return 0 on success, negative AVERROR on failure
+ */
+int av_quantize_add_region(AVQuantizeContext *ctx,
+                            const uint8_t *rgba, int nb_pixels);
 
 /**
  * Analyze pixels and generate an optimal palette.
@@ -89,8 +117,12 @@ void av_quantize_freep(AVQuantizeContext **pctx);
  * Must be called before av_quantize_apply(). The context retains
  * the generated palette for subsequent mapping calls.
  *
+ * If regions have been added via av_quantize_add_region(), the palette
+ * is generated from equal-weight sampling across all regions; @p rgba
+ * and @p nb_pixels are ignored and may be NULL/0.  All regions are
  * consumed (freed) by this call.
  *
+ * If no regions have been added, @p rgba and @p nb_pixels must be valid.
  *
  * @param[in]  ctx       quantization context
  * @param[in]  rgba      input pixels in RGBA byte order (4 bytes per pixel),
@@ -98,7 +130,11 @@ void av_quantize_freep(AVQuantizeContext **pctx);
  * @param[in]  nb_pixels number of pixels in the input (max INT_MAX,
  *                        ~536M pixels), or 0 when regions are used
  * @param[out] palette   output palette in 0xAARRGGBB format
- * @param[in]  quality   learning quality 1 (fast) to 30 (best), 10 typical
+ * @param[in]  quality   algorithm-specific quality hint (1-30).
+ *                        NeuQuant: controls sampling rate (1 = fast,
+ *                        30 = best).  Median Cut: ignored.  ELBG: maps
+ *                        to iteration steps (1-10 = 1, 11-20 = 2,
+ *                        21-30 = 3).
  * @return number of palette entries on success, negative AVERROR on failure
  */
 int av_quantize_generate_palette(AVQuantizeContext *ctx,

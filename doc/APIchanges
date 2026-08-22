@@ -10,6 +10,21 @@ API changes, most recent first:
     - Add av_quantize_apply().
     - Add enum AVQuantizeAlgorithm.
 
+2026-03-xx - xxxxxxxxxx - lavu 61.5.100 - quantize.h
+  Add AV_QUANTIZE_MEDIAN_CUT.
+
+2026-03-xx - xxxxxxxxxx - lavu 61.5.100 - quantize.h
+  Add av_quantize_add_region().
+  Add AV_QUANTIZE_MAX_REGIONS.
+
+2026-03-xx - xxxxxxxxxx - lavu 61.2.100 - quantize.h
+  Add color quantization API:
+    - Add av_quantize_alloc().
+    - Add av_quantize_freep().
+    - Add av_quantize_generate_palette().
+    - Add av_quantize_apply().
+    - Add enum AVQuantizeAlgorithm.
+
 2026-08-23 - xxxxxxxxxx - lavu 61.6.100 - channel_layout.h
   Add AV_CH_LAYOUT_5POINT1POINT4 and AV_CHANNEL_LAYOUT_5POINT1POINT4.
   Add AV_CH_LAYOUT_7POINT1POINT4 and AV_CHANNEL_LAYOUT_7POINT1POINT4.
