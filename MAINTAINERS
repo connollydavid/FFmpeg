@@ -34,6 +34,9 @@ ffmpeg:
   ffmpeg.c                              Michael Niedermayer, Anton Khirnov
   ffmpeg_dec_sub.c, ffmpeg_dec_sub.h    David Connolly
   ffmpeg_enc_sub.c, ffmpeg_enc_sub.h    David Connolly
+  ffmpeg_sub_ocr.c, ffmpeg_sub_ocr.h
+  ffmpeg_sub_render.c, ffmpeg_sub_render.h
+  ffmpeg_sub_util.c, ffmpeg_sub_util.h
 
 ffplay:
   ffplay.c                          [2] Marton Balint

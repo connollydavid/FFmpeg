@@ -816,14 +816,6 @@ static const AVOption options[] = {
       "a warning to maintain decoder model compliance.",
       OFFSET(max_cdb_usage), AV_OPT_TYPE_DOUBLE,
       {.dbl = 0.0}, 0.0, 1.0, SE },
-    { "forced_style", "Comma-separated list of ASS style names whose "
-      "events are marked as forced in the PCS",
-      OFFSET(forced_style), AV_OPT_TYPE_STRING,
-      {.str = NULL}, 0, 0, SE },
-    { "quantize_method", "Color quantization method "
-      "(0=NeuQuant, 1=ELBG, 2=Median Cut)",
-      OFFSET(quantize_method), AV_OPT_TYPE_INT,
-      {.i64 = 0}, 0, 2, SE },
     { NULL },
 };
 

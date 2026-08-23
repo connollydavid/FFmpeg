@@ -4833,18 +4833,4 @@ HDMV coded data buffer (1 MB at 16 Mbps) and drops events that would
 exceed this threshold. Set to 0 to disable (default). A value of 0.9
 allows 90% buffer utilisation before dropping events.
 
-@item forced_style @var{string}
-Comma-separated list of ASS style names to mark as forced subtitles.
-Events rendered with a matching style get the @code{forced_on_flag} set
-in the PCS composition descriptor. Enables merging forced and non-forced
-subtitles in a single ASS file by assigning distinct styles. Style names
-are case-sensitive and may contain spaces. Disabled by default; set to
-e.g. @samp{Forced} or @samp{Forced, Foreign Dialogue} to enable.
 
-@item quantize_method @var{integer}
-Color quantization algorithm used to reduce rendered RGBA frames to the
-PGS palette. @samp{0} selects NeuQuant (the neural-network quantizer,
-default), @samp{1} selects the ELBG algorithm, and @samp{2} selects
-Median Cut.
-@end table
-@c man end SUBTITLES ENCODERS

@@ -1,6 +1,13 @@
 Entries are sorted chronologically from oldest to youngest within each release,
 releases are sorted from youngest to oldest.
 
+version <next>:
+- HDMV PGS subtitle encoder (pgssub)
+- color quantization API in libavutil (NeuQuant, ELBG, Median Cut)
+- GIF encoder RGBA input with built-in quantization
+- ffmpeg CLI text to bitmap subtitle conversion via libass
+- ffmpeg CLI bitmap to text subtitle conversion via Tesseract OCR
+
 version 9.0.1:
  Bump for 9.0.1
  avcodec/lcldec: clear what the multithread chunks leave undecoded
@@ -91,10 +98,6 @@ version 9.0.1:
 
 
 version 9.0:
-version <next>:
-- HDMV PGS subtitle encoder
-- AV_CODEC_PROP_EXPLICIT_END for subtitle clear signaling
-- ffmpeg CLI text to bitmap subtitle conversion via libass
 - Extend AMF Color Converter (vf_vpp_amf) HDR capabilities
 - LCEVC track muxing support in MP4 muxer
 - Playdate video encoder and muxer

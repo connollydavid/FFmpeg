@@ -1,52 +1,32 @@
-FATE_API_LIBAVCODEC-$(call ENCDEC, FLAC, FLAC) += fate-api-flac
-fate-api-flac: $(APITESTSDIR)/api-flac-test$(EXESUF)
-fate-api-flac: CMD = run $(APITESTSDIR)/api-flac-test$(EXESUF)
-fate-api-flac: CMP = null
+fate-api-pgs-rate-control: $(APITESTSDIR)/api-pgs-rate-control-test$(EXESUF)
+fate-api-pgs-rate-control: CMD = run $(APITESTSDIR)/api-pgs-rate-control-test$(EXESUF)
+fate-api-pgs-rate-control: CMP = null
 
-FATE_API_LIBAVCODEC-$(call ALLYES, H261_ENCODER H261_PARSER) += fate-api-enc-parser fate-api-enc-parser-cif
-fate-api-enc-parser: $(APITESTSDIR)/api-enc-parser-test$(EXESUF)
-fate-api-enc-parser: CMD = run $(APITESTSDIR)/api-enc-parser-test$(EXESUF) h261 176 144
-fate-api-enc-parser-cif: $(APITESTSDIR)/api-enc-parser-test$(EXESUF)
-fate-api-enc-parser-cif: CMD = run $(APITESTSDIR)/api-enc-parser-test$(EXESUF) h261 352 288
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-fade
+fate-api-pgs-fade: $(APITESTSDIR)/api-pgs-fade-test$(EXESUF)
+fate-api-pgs-fade: CMD = run $(APITESTSDIR)/api-pgs-fade-test$(EXESUF)
+fate-api-pgs-fade: CMP = null
 
-FATE_API_SAMPLES_LIBAVFORMAT-$(call DEMDEC, FLV, FLV) += fate-api-band
-fate-api-band: $(APITESTSDIR)/api-band-test$(EXESUF)
-fate-api-band: CMD = run $(APITESTSDIR)/api-band-test$(EXESUF) $(TARGET_SAMPLES)/mpeg4/resize_down-up.h263
-fate-api-band: CMP = null
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-dts
+fate-api-pgs-dts: $(APITESTSDIR)/api-pgs-dts-test$(EXESUF)
+fate-api-pgs-dts: CMD = run $(APITESTSDIR)/api-pgs-dts-test$(EXESUF)
+fate-api-pgs-dts: CMP = null
 
-FATE_API_SAMPLES_LIBAVFORMAT-$(call DEMDEC, H264, H264, H264_PARSER) += fate-api-h264
-fate-api-h264: $(APITESTSDIR)/api-h264-test$(EXESUF)
-fate-api-h264: CMD = run $(APITESTSDIR)/api-h264-test$(EXESUF) $(TARGET_SAMPLES)/h264-conformance/SVA_NL2_E.264
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-overlap-verify
+fate-api-pgs-overlap-verify: $(APITESTSDIR)/api-pgs-overlap-verify-test$(EXESUF)
+fate-api-pgs-overlap-verify: CMD = run $(APITESTSDIR)/api-pgs-overlap-verify-test$(EXESUF)
+fate-api-pgs-overlap-verify: CMP = null
 
-FATE_API_SAMPLES_LIBAVFORMAT-$(call DEMDEC, H264, H264) += fate-api-h264-slice
-fate-api-h264-slice: $(APITESTSDIR)/api-h264-slice-test$(EXESUF)
-fate-api-h264-slice: CMD = run $(APITESTSDIR)/api-h264-slice-test$(EXESUF) 2 $(TARGET_SAMPLES)/h264/crew_cif.nal
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-multi-object
+fate-api-pgs-multi-object: $(APITESTSDIR)/api-pgs-multi-object-test$(EXESUF)
+fate-api-pgs-multi-object: CMD = run $(APITESTSDIR)/api-pgs-multi-object-test$(EXESUF)
+fate-api-pgs-multi-object: CMP = null
 
-FATE_API_LIBAVFORMAT-yes += $(if $(findstring fate-lavf-flv,$(FATE_LAVF_CONTAINER)),fate-api-seek)
-fate-api-seek: $(APITESTSDIR)/api-seek-test$(EXESUF) fate-lavf-flv
-fate-lavf-flv: KEEP_FILES ?= 1
-fate-lavf-flv: CMP =
-fate-api-seek: CMD = run $(APITESTSDIR)/api-seek-test$(EXESUF) $(TARGET_PATH)/tests/data/lavf/lavf.flv 0 720
-fate-api-seek: CMP = null
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-ap-interval
+fate-api-pgs-ap-interval: $(APITESTSDIR)/api-pgs-ap-interval-test$(EXESUF)
+fate-api-pgs-ap-interval: CMD = run $(APITESTSDIR)/api-pgs-ap-interval-test$(EXESUF)
+fate-api-pgs-ap-interval: CMP = null
 
-FATE_API-$(HAVE_THREADS) += fate-api-threadmessage
-fate-api-threadmessage: $(APITESTSDIR)/api-threadmessage-test$(EXESUF)
-fate-api-threadmessage: CMD = run $(APITESTSDIR)/api-threadmessage-test$(EXESUF) 3 10 30 50 2 20 40
-fate-api-threadmessage: CMP = null
-
-FATE_API_SAMPLES-$(CONFIG_AVFORMAT) += $(FATE_API_SAMPLES_LIBAVFORMAT-yes)
-
-ifdef SAMPLES
-    FATE_API_SAMPLES += $(FATE_API_SAMPLES-yes)
-endif
-
-FATE_API-$(CONFIG_AVCODEC) += $(FATE_API_LIBAVCODEC-yes)
-FATE_API-$(CONFIG_AVFORMAT) += $(FATE_API_LIBAVFORMAT-yes)
-FATE_API = $(FATE_API-yes)
-
-FATE-yes += $(FATE_API) $(FATE_API_SAMPLES)
-
-fate-api: $(FATE_API) $(FATE_API_SAMPLES)
 FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-forced
 fate-api-pgs-forced: $(APITESTSDIR)/api-pgs-forced-test$(EXESUF)
 fate-api-pgs-forced: CMD = run $(APITESTSDIR)/api-pgs-forced-test$(EXESUF)

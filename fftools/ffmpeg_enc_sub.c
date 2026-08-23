@@ -441,15 +441,9 @@ static int convert_text_to_bitmap(SubtitleEncContext *ctx,
     /* one-way: forward the CLI-owned choices to the encoder once */
     if (!ctx->options_forwarded && ost && ost->enc && ost->enc->enc_ctx) {
         ctx->options_forwarded = 1;
-        if (ctx->quantize_method >= 0)
-            av_opt_set_int(ost->enc->enc_ctx->priv_data, "quantize_method",
-                           ctx->quantize_method, 0);
         if (ctx->sub_force_all > 0)
             av_opt_set_int(ost->enc->enc_ctx->priv_data, "force_all",
                            ctx->sub_force_all, 0);
-        if (ctx->forced_style && ctx->forced_style[0])
-            av_opt_set(ost->enc->enc_ctx->priv_data, "forced_style",
-                       ctx->forced_style, 0);
     }
 
     AVCodecContext *enc_ctx = ost->enc->enc_ctx;
