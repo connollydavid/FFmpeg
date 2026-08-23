@@ -9,6 +9,7 @@ APITESTPROGS-$(CONFIG_AVCODEC) += api-enc-info
 APITESTPROGS-$(call ALLYES, H261_ENCODER H261_PARSER) += api-enc-parser
 APITESTPROGS-$(CONFIG_PGSSUB_ENCODER) += api-pgs-fade api-pgs-dts api-pgs-overlap-verify api-pgs-multi-object api-pgs-ap-interval api-pgs-forced api-pgs-rate-control
 APITESTPROGS-$(CONFIG_PGSSUB_ENCODER) += api-pgs-palette-delta api-pgs-palette-reuse
+APITESTPROGS-$(CONFIG_PGSSUB_ENCODER) += api-pgs-animation-timing api-pgs-animation-util api-pgs-coalesce api-pgs-rectsplit
 APITESTPROGS += $(APITESTPROGS-yes)
 
 APITESTOBJS  := $(APITESTOBJS:%=$(APITESTSDIR)%) $(APITESTPROGS:%=$(APITESTSDIR)/%-test.o)
