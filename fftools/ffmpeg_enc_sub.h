@@ -49,6 +49,8 @@ SubtitleEncContext *enc_sub_alloc(struct Scheduler *sch, unsigned sch_idx);
  * @param[in,out] pctx pointer to context pointer; set to NULL on return
  */
 void enc_sub_free(SubtitleEncContext **pctx);
+void enc_sub_set_options(SubtitleEncContext *ctx, int quantize_method,
+                         int force_all, const char *forced_style);
 
 /**
  * Process a subtitle event for text-to-bitmap conversion.
