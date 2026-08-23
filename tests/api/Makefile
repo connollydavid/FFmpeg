@@ -5,6 +5,7 @@ APITESTPROGS-yes += api-seek api-dump-stream-meta
 APITESTPROGS-$(call DEMDEC, H263, H263) += api-band
 APITESTPROGS-$(HAVE_THREADS) += api-threadmessage
 APITESTPROGS-$(call ALLYES, H261_ENCODER H261_PARSER) += api-enc-parser
+APITESTPROGS-$(CONFIG_PGSSUB_ENCODER) += api-pgs-fade api-pgs-dts api-pgs-overlap-verify api-pgs-multi-object api-pgs-ap-interval api-pgs-forced api-pgs-rate-control
 APITESTPROGS += $(APITESTPROGS-yes)
 
 APITESTOBJS  := $(APITESTOBJS:%=$(APITESTSDIR)%) $(APITESTPROGS:%=$(APITESTSDIR)/%-test.o)
