@@ -1,3 +1,6 @@
+fate-api-pgs-rate-control: $(APITESTSDIR)/api-pgs-rate-control-test$(EXESUF)
+fate-api-pgs-rate-control: CMD = run $(APITESTSDIR)/api-pgs-rate-control-test$(EXESUF)
+fate-api-pgs-rate-control: CMP = null
 
 FATE_API_LIBAVCODEC-$(call ALLYES, H261_ENCODER H261_PARSER) += fate-api-enc-parser fate-api-enc-parser-cif
 fate-api-enc-parser: $(APITESTSDIR)/api-enc-parser-test$(EXESUF)
@@ -47,3 +50,32 @@ FATE_API = $(FATE_API-yes)
 FATE-yes += $(FATE_API) $(FATE_API_SAMPLES)
 
 fate-api: $(FATE_API) $(FATE_API_SAMPLES)
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-fade
+fate-api-pgs-fade: $(APITESTSDIR)/api-pgs-fade-test$(EXESUF)
+fate-api-pgs-fade: CMD = run $(APITESTSDIR)/api-pgs-fade-test$(EXESUF)
+fate-api-pgs-fade: CMP = null
+
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-dts
+fate-api-pgs-dts: $(APITESTSDIR)/api-pgs-dts-test$(EXESUF)
+fate-api-pgs-dts: CMD = run $(APITESTSDIR)/api-pgs-dts-test$(EXESUF)
+fate-api-pgs-dts: CMP = null
+
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-overlap-verify
+fate-api-pgs-overlap-verify: $(APITESTSDIR)/api-pgs-overlap-verify-test$(EXESUF)
+fate-api-pgs-overlap-verify: CMD = run $(APITESTSDIR)/api-pgs-overlap-verify-test$(EXESUF)
+fate-api-pgs-overlap-verify: CMP = null
+
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-multi-object
+fate-api-pgs-multi-object: $(APITESTSDIR)/api-pgs-multi-object-test$(EXESUF)
+fate-api-pgs-multi-object: CMD = run $(APITESTSDIR)/api-pgs-multi-object-test$(EXESUF)
+fate-api-pgs-multi-object: CMP = null
+
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-ap-interval
+fate-api-pgs-ap-interval: $(APITESTSDIR)/api-pgs-ap-interval-test$(EXESUF)
+fate-api-pgs-ap-interval: CMD = run $(APITESTSDIR)/api-pgs-ap-interval-test$(EXESUF)
+fate-api-pgs-ap-interval: CMP = null
+
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-forced
+fate-api-pgs-forced: $(APITESTSDIR)/api-pgs-forced-test$(EXESUF)
+fate-api-pgs-forced: CMD = run $(APITESTSDIR)/api-pgs-forced-test$(EXESUF)
+fate-api-pgs-forced: CMP = null

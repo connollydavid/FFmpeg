@@ -13,6 +13,9 @@ version <next>:
 
 
 version 9.0:
+version <next>:
+- HDMV PGS subtitle encoder
+- AV_CODEC_PROP_EXPLICIT_END for subtitle clear signaling
 - Extend AMF Color Converter (vf_vpp_amf) HDR capabilities
 - LCEVC track muxing support in MP4 muxer
 - Playdate video encoder and muxer
