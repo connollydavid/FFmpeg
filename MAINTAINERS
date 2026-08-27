@@ -88,6 +88,7 @@ Other:
   csp.c, csp.h                          Leo Izen, Ronald S. Bultje
   des                                   Reimar Doeffinger
   dynarray.h                            Nicolas George
+  elbg.c, elbg.h                        David Connolly
   eval.c, eval.h                    [2] Michael Niedermayer
   float_dsp                             Loren Merritt
   hash                                  Reimar Doeffinger
