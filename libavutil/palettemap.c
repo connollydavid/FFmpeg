@@ -592,6 +592,7 @@ int avpriv_palette_map_apply(AVPrivPaletteMapContext *ctx,
                               ordered_dither);
 }
 
+int avpriv_palette_map_color(AVPrivPaletteMapContext *ctx, uint32_t color)
 {
     if (!ctx)
         return AVERROR(EINVAL);

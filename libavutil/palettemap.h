@@ -101,6 +101,7 @@ int avpriv_palette_map_apply(AVPrivPaletteMapContext *ctx,
  * @param color input color in 0xAARRGGBB format
  * @return palette index (0-255), or negative AVERROR on failure
  */
+int avpriv_palette_map_color(AVPrivPaletteMapContext *ctx, uint32_t color);
 
 /**
  * Get the palette stored in the context.
