@@ -56,3 +56,6 @@
 /libavfilter/vulkan/*.c
 /.*/
 !/.forgejo/
+
+# local fate test binary
+/libavutil/tests/quantize
