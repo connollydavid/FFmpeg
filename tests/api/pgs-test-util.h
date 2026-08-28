@@ -29,7 +29,7 @@
 
 /* Find the first segment of a given type in encoder output.
  * PGS segment layout: type(1) + length(2) + payload(length) */
-static const uint8_t *find_segment(const uint8_t *data, int size,
+static inline const uint8_t *find_segment(const uint8_t *data, int size,
                                    uint8_t type)
 {
     const uint8_t *p = data;
@@ -44,7 +44,7 @@ static const uint8_t *find_segment(const uint8_t *data, int size,
 }
 
 /* Find the Nth segment of a given type (0-indexed) */
-static const uint8_t *find_nth_segment(const uint8_t *data, int size,
+static inline const uint8_t *find_nth_segment(const uint8_t *data, int size,
                                        uint8_t type, int n)
 {
     const uint8_t *p = data;
@@ -63,7 +63,7 @@ static const uint8_t *find_nth_segment(const uint8_t *data, int size,
 }
 
 /* Count segments of a given type */
-static int count_segments(const uint8_t *data, int size, uint8_t type)
+static inline int count_segments(const uint8_t *data, int size, uint8_t type)
 {
     const uint8_t *p = data;
     int count = 0;
@@ -78,7 +78,7 @@ static int count_segments(const uint8_t *data, int size, uint8_t type)
 }
 
 /* Return the total PDS segment size (3-byte header + payload) */
-static int pds_total_size(const uint8_t *pds)
+static inline int pds_total_size(const uint8_t *pds)
 {
     if (!pds)
         return 0;
@@ -87,7 +87,7 @@ static int pds_total_size(const uint8_t *pds)
 
 /* Return the number of palette entries in a PDS segment.
  * PDS payload: palette_id(1) + version(1) + N * 5-byte entries */
-static int pds_entry_count(const uint8_t *pds)
+static inline int pds_entry_count(const uint8_t *pds)
 {
     int payload;
     if (!pds)
@@ -97,7 +97,7 @@ static int pds_entry_count(const uint8_t *pds)
 }
 
 /* Set up a single-rect bitmap subtitle */
-static int setup_subtitle(AVSubtitle *sub, AVSubtitleRect *rect,
+static inline int setup_subtitle(AVSubtitle *sub, AVSubtitleRect *rect,
                           uint8_t *indices, uint32_t *palette,
                           int x, int y, int nb_colors)
 {
@@ -126,7 +126,7 @@ static int setup_subtitle(AVSubtitle *sub, AVSubtitleRect *rect,
     return 0;
 }
 
-static void cleanup_subtitle(AVSubtitle *sub)
+static inline void cleanup_subtitle(AVSubtitle *sub)
 {
     av_freep(&sub->rects);
     sub->num_rects = 0;

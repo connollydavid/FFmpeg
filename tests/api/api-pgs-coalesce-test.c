@@ -83,6 +83,8 @@ int main(void)
     SubRenderContext *render = NULL;
     const AVCodec *codec;
     AVCodecContext *enc = NULL;
+    uint8_t *out = NULL;
+    const int out_size = 1024 * 1024;
     int ret = 1;
 
     /* --- Setup ----------------------------------------- */
@@ -92,6 +94,9 @@ int main(void)
         fprintf(stderr, "Render alloc failed (libass not available?)\n");
         return 77; /* FATE skip */
     }
+    out = av_malloc(out_size);
+    if (!out)
+        return 1;
     sub_render_header(render, ass_header);
 
     codec = avcodec_find_encoder(AV_CODEC_ID_HDMV_PGS_SUBTITLE);
@@ -199,7 +204,6 @@ int main(void)
             uint8_t *indices;
             int nb_colors, nb_px = w * h;
             int size;
-            uint8_t out[1024 * 1024];
             AVSubtitle sub = {0};
             AVSubtitleRect rect = {0};
             AVSubtitleRect *rects[1] = { &rect };
@@ -235,7 +239,7 @@ int main(void)
             rect.data[1]            = (uint8_t *)palette;
             rect.linesize[1]        = nb_colors * 4;
 
-            size = avcodec_encode_subtitle(enc, out, sizeof(out), &sub);
+            size = avcodec_encode_subtitle(enc, out, out_size, &sub);
             av_free(indices);
 
             if (size <= 0) {
@@ -265,6 +269,7 @@ int main(void)
     ret = 0;
 
 end:
+    av_free(out);
     sub_render_free(&render);
     avcodec_free_context(&enc);
     return ret;

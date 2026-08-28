@@ -30,7 +30,6 @@ static int encode_rect(int64_t pts, int x, int y, int w, int h, int nc)
 {
     AVSubtitle sub;
     AVSubtitleRect rect;
-    int size;
 
     memset(&sub, 0, sizeof(sub));
     memset(&rect, 0, sizeof(rect));

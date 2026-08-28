@@ -83,7 +83,8 @@ int main(void)
 {
     const AVCodec *codec;
     AVCodecContext *ctx = NULL;
-    uint8_t buf[1024 * 1024];
+    uint8_t *buf = NULL;
+    const int buf_size = 1024 * 1024;
     int ret, size;
 
     /* Small 4x4 bitmap data */
@@ -118,11 +119,17 @@ int main(void)
         return 1;
     }
 
+    buf = av_malloc(buf_size);
+    if (!buf) {
+        avcodec_free_context(&ctx);
+        return 1;
+    }
+
     /*
      * Test 1: First subtitle -> Epoch Start (0x80)
      */
     setup_subtitle(&sub, &rect, indices, palette_a, 100, 800, 4);
-    size = avcodec_encode_subtitle(ctx, buf, sizeof(buf), &sub);
+    size = avcodec_encode_subtitle(ctx, buf, buf_size, &sub);
     if (size <= 0) {
         fprintf(stderr, "Test 1: encode failed (%d)\n", size);
         ret = 1;
@@ -169,7 +176,7 @@ int main(void)
      * Test 2: Same position, different palette -> Normal + palette_update
      */
     setup_subtitle(&sub, &rect, indices, palette_b, 100, 800, 4);
-    size = avcodec_encode_subtitle(ctx, buf, sizeof(buf), &sub);
+    size = avcodec_encode_subtitle(ctx, buf, buf_size, &sub);
     if (size <= 0) {
         fprintf(stderr, "Test 2: encode failed (%d)\n", size);
         ret = 1;
@@ -222,7 +229,7 @@ int main(void)
      * Test 3: Same palette, different position -> Normal (no palette_update)
      */
     setup_subtitle(&sub, &rect, indices, palette_b, 200, 700, 4);
-    size = avcodec_encode_subtitle(ctx, buf, sizeof(buf), &sub);
+    size = avcodec_encode_subtitle(ctx, buf, buf_size, &sub);
     if (size <= 0) {
         fprintf(stderr, "Test 3: encode failed (%d)\n", size);
         ret = 1;
@@ -270,7 +277,7 @@ int main(void)
     sub.rects = NULL;
     sub.start_display_time = 0;
     sub.end_display_time   = 0;
-    size = avcodec_encode_subtitle(ctx, buf, sizeof(buf), &sub);
+    size = avcodec_encode_subtitle(ctx, buf, buf_size, &sub);
     if (size <= 0) {
         fprintf(stderr, "Test 4: encode failed (%d)\n", size);
         ret = 1;
@@ -303,7 +310,7 @@ int main(void)
      * Test 5: New subtitle after clear -> new Epoch Start (0x80)
      */
     setup_subtitle(&sub, &rect, indices, palette_a, 300, 900, 4);
-    size = avcodec_encode_subtitle(ctx, buf, sizeof(buf), &sub);
+    size = avcodec_encode_subtitle(ctx, buf, buf_size, &sub);
     if (size <= 0) {
         fprintf(stderr, "Test 5: encode failed (%d)\n", size);
         ret = 1;
@@ -351,7 +358,7 @@ int main(void)
         memset(&sub, 0, sizeof(sub));
         sub.num_rects = 0;
         sub.rects = NULL;
-        avcodec_encode_subtitle(ctx, buf, sizeof(buf), &sub);
+        avcodec_encode_subtitle(ctx, buf, buf_size, &sub);
 
         for (step = 0; step < 5; step++) {
             /* Each step uses different alpha to force palette change */
@@ -361,7 +368,7 @@ int main(void)
             pal[3] = ((step * 30 + 20) << 24) | 0x0000FF;
 
             setup_subtitle(&sub, &rect, indices, pal, 400, 500, 4);
-            size = avcodec_encode_subtitle(ctx, buf, sizeof(buf), &sub);
+            size = avcodec_encode_subtitle(ctx, buf, buf_size, &sub);
             if (size <= 0) {
                 fprintf(stderr, "Test 6 step %d: "
                         "encode failed (%d)\n", step, size);
@@ -397,6 +404,7 @@ int main(void)
     ret = 0;
 
 end:
+    av_free(buf);
     avcodec_free_context(&ctx);
     return ret;
 }

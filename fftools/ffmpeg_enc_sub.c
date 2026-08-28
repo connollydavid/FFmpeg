@@ -1213,8 +1213,6 @@ static int render_active_set(SubtitleEncContext *ctx,
                              OutputFile *of, OutputStream *ost,
                              int64_t pts, AVPacket *pkt)
 {
-    Encoder *e = ost->enc;
-    AVCodecContext *enc = e->enc_ctx;
     enum AVQuantizeAlgorithm algo = get_quantize_algo(ctx);
     int64_t origin_pts = INT64_MAX;
     int nb_active = 0, first = 1, has_animation = 0;

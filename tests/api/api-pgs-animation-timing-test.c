@@ -84,6 +84,8 @@ int main(void)
     AVCodecContext *enc = NULL;
     uint8_t *rgba0 = NULL, *peak_rgba = NULL;
     uint8_t *ref_indices = NULL;
+    uint8_t *out = NULL;
+    const int out_size = 1024 * 1024;
     int ret = 1;
 
     const int64_t start_ms = 0, dur_ms = 2000;
@@ -103,6 +105,9 @@ int main(void)
         fprintf(stderr, "Render alloc failed (libass not available?)\n");
         return 77; /* FATE skip */
     }
+    out = av_malloc(out_size);
+    if (!out)
+        return 1;
     sub_render_header(render, ass_header);
 
     codec = avcodec_find_encoder(AV_CODEC_ID_HDMV_PGS_SUBTITLE);
@@ -255,7 +260,6 @@ int main(void)
         AVQuantizeContext *qctx;
         uint32_t ref_pal[256] = {0};
         int nb_colors, nb_px = w0 * h0;
-        uint8_t out[1024 * 1024];
         int ds_count = 0, pal_updates = 0;
         int last_pal_ver = -1;
         int pal_ver_ok = 1;
@@ -318,7 +322,7 @@ int main(void)
             rect.data[1]            = (uint8_t *)scaled;
             rect.linesize[1]        = nb_colors * 4;
 
-            size = avcodec_encode_subtitle(enc, out, sizeof(out), &sub);
+            size = avcodec_encode_subtitle(enc, out, out_size, &sub);
             if (size <= 0)
                 continue;
 
@@ -379,6 +383,7 @@ int main(void)
     ret = 0;
 
 end:
+    av_free(out);
     av_free(rgba0);
     av_free(peak_rgba);
     av_free(ref_indices);
