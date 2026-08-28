@@ -50,6 +50,9 @@ FATE_API = $(FATE_API-yes)
 FATE-yes += $(FATE_API) $(FATE_API_SAMPLES)
 
 fate-api: $(FATE_API) $(FATE_API_SAMPLES)
+FATE_API_LIBAVCODEC-$(call ENCDEC, FLAC, FLAC) += fate-api-flac
+fate-api-flac: $(APITESTSDIR)/api-flac-test$(EXESUF)
+fate-api-flac: CMD = run $(APITESTSDIR)/api-flac-test$(EXESUF)
 FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-fade
 fate-api-pgs-fade: $(APITESTSDIR)/api-pgs-fade-test$(EXESUF)
 fate-api-pgs-fade: CMD = run $(APITESTSDIR)/api-pgs-fade-test$(EXESUF)

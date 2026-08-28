@@ -2036,7 +2036,7 @@ const OptionDef options[] = {
         "mark all subtitle events forced and set the stream disposition (forwarded to the encoder one-way)", "force" },
     { "sub_quantize_method", OPT_TYPE_INT, OPT_SUBTITLE | OPT_PERSTREAM | OPT_OUTPUT | OPT_EXPERT,
         { .off = OFFSET(sub_quantize_method) },
-        "color quantizer for text-to-bitmap conversion (0=NeuQuant, 1=ELBG, 2=Median Cut; encoder default when unset)", "method" },
+        "color quantizer for text-to-bitmap conversion (0=NeuQuant, 1=Median Cut, 2=ELBG; encoder default when unset)", "method" },
     { "sub_forced_style", OPT_TYPE_STRING, OPT_SUBTITLE | OPT_PERSTREAM | OPT_OUTPUT | OPT_EXPERT,
         { .off = OFFSET(sub_forced_style) },
         "comma-separated ASS style names whose events are marked forced", "styles" },

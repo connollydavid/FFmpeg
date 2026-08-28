@@ -4834,3 +4834,4 @@ exceed this threshold. Set to 0 to disable (default). A value of 0.9
 allows 90% buffer utilisation before dropping events.
 
 
+@c man end SUBTITLES ENCODERS

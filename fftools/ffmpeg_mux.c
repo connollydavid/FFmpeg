@@ -832,6 +832,7 @@ static void ost_free(OutputStream **post)
 
     av_freep(&ost->attachment_filename);
 
+    av_freep(&ost->sub_forced_style);
     av_freep(&ost->sub_ocr_lang);
     av_freep(&ost->sub_ocr_datapath);
 
