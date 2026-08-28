@@ -32,8 +32,11 @@ Applications
 
 ffmpeg:
   ffmpeg.c                              Michael Niedermayer, Anton Khirnov
-  ffmpeg_dec_sub.c, ffmpeg_dec_sub.h    David Connolly
-  ffmpeg_enc_sub.c, ffmpeg_enc_sub.h    David Connolly
+  ffmpeg_dec_sub.c, ffmpeg_dec_sub.h    David Connolly <david@connol.ly>
+  ffmpeg_enc_sub.c, ffmpeg_enc_sub.h    David Connolly <david@connol.ly>
+  ffmpeg_sub_ocr.c, ffmpeg_sub_ocr.h    David Connolly <david@connol.ly>
+  ffmpeg_sub_render.c, ffmpeg_sub_render.h David Connolly <david@connol.ly>
+  ffmpeg_sub_util.c, ffmpeg_sub_util.h  David Connolly <david@connol.ly>
 
 ffplay:
   ffplay.c                          [2] Marton Balint
@@ -90,7 +93,6 @@ Other:
   csp.c, csp.h                          Leo Izen, Ronald S. Bultje
   des                                   Reimar Doeffinger
   dynarray.h                            Nicolas George
-  elbg.c, elbg.h                        David Connolly
   eval.c, eval.h                    [2] Michael Niedermayer
   float_dsp                             Loren Merritt
   hash                                  Reimar Doeffinger
@@ -102,14 +104,13 @@ Other:
   integer.c, integer.h                  Michael Niedermayer
   lzo                                   Reimar Doeffinger
   mathematics.c, mathematics.h      [2] Michael Niedermayer
-  mediancut.c, mediancut.h              David Connolly
+  mediancut.c, mediancut.h              David Connolly <david@connol.ly>
   mem.c, mem.h                      [2] Michael Niedermayer
-  neuquant.c, neuquant.h                David Connolly
+  neuquant.c, neuquant.h                David Connolly <david@connol.ly>
   opencl.c, opencl.h                    Wei Gao
   opt.c, opt.h                          Michael Niedermayer
-  palette.c, palette.h                  David Connolly
-  palettemap.c, palettemap.h            David Connolly
-  quantize.c, quantize.h                David Connolly
+  palettemap*                           David Connolly <david@connol.ly>
+  quantize.c, quantize.h                David Connolly <david@connol.ly>
   rational.c, rational.h            [2] Michael Niedermayer
   rc4                                   Reimar Doeffinger
   ripemd.c, ripemd.h                    James Almer
@@ -245,7 +246,7 @@ Codecs:
   opus*                                 Rostislav Pehlivanov
   pcx.c                                 Ivo van Poorten
   pgssubdec.c                           Reimar Doeffinger
-  pgssubenc.c                           David Connolly
+  pgssubenc.c                           David Connolly <david@connol.ly>
   ptx.c                                 Ivo van Poorten
   qcelp*                                Reynaldo H. Verdejo Pinochet
   qdm2.c, qdm2data.h                    Roberto Togni
