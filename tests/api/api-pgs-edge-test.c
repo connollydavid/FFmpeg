@@ -63,6 +63,9 @@ int main(void)
         fprintf(stderr, "PGS encoder not found\n");
         return 1;
     }
+    buf = av_mallocz(buf_size);
+    if (!buf)
+        return 1;
     ctx = avcodec_alloc_context3(codec);
     if (!ctx)
         return 1;

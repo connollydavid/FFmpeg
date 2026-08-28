@@ -110,5 +110,7 @@ fate-api-pgs-rectsplit: $(APITESTSDIR)/api-pgs-rectsplit-test$(EXESUF)
 fate-api-pgs-rectsplit: CMD = run $(APITESTSDIR)/api-pgs-rectsplit-test$(EXESUF)
 fate-api-pgs-rectsplit: CMP = null
 
-# fate-api-pgs-edge is disabled: the 256-colour duplicate-palette case
-# segfaults in pgssub_write_pcs (recorded in plan/0022 findings).
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-edge
+fate-api-pgs-edge: $(APITESTSDIR)/api-pgs-edge-test$(EXESUF)
+fate-api-pgs-edge: CMD = run $(APITESTSDIR)/api-pgs-edge-test$(EXESUF)
+fate-api-pgs-edge: CMP = null
