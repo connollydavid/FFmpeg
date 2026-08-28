@@ -126,7 +126,10 @@ int main(void)
     sub_render_event(render, fade_text,
                      start_ms, dur_ms);
 
-    sub_render_sample(render, start_ms,
+    /* Sample one frame into the event: at exactly t=start_ms a fade-in
+     * can render fully transparent, which is a libass rounding edge,
+     * not an animation fact. */
+    sub_render_sample(render, start_ms + frame_ms,
                       &rgba0, &ls0,
                       &x0, &y0, &w0, &h0, NULL);
     if (!rgba0) {
