@@ -738,6 +738,7 @@ static int pgssub_encode(AVCodecContext *avctx, uint8_t *outbuf,
      * reflects the new version number. Cache is updated after writing. */
     if (state == PGS_EPOCH_START) {
         s->palette_version = 0;
+        memset(s->pds_cache, 0, sizeof(s->pds_cache));
         s->pds_cache_valid = 0;
         for (i = 0; i < PGS_MAX_OBJECT_REFS; i++)
             s->obj_version[i] = 0;

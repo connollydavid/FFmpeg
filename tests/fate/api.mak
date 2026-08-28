@@ -117,3 +117,8 @@ FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-edge
 fate-api-pgs-edge: $(APITESTSDIR)/api-pgs-edge-test$(EXESUF)
 fate-api-pgs-edge: CMD = run $(APITESTSDIR)/api-pgs-edge-test$(EXESUF)
 fate-api-pgs-edge: CMP = null
+
+FATE_API_LIBAVCODEC-$(CONFIG_PGSSUB_ENCODER) += fate-api-pgs-epoch-cache
+fate-api-pgs-epoch-cache: $(APITESTSDIR)/api-pgs-epoch-cache-test$(EXESUF)
+fate-api-pgs-epoch-cache: CMD = run $(APITESTSDIR)/api-pgs-epoch-cache-test$(EXESUF)
+fate-api-pgs-epoch-cache: CMP = null

@@ -11,6 +11,7 @@ APITESTPROGS-$(CONFIG_PGSSUB_ENCODER) += api-pgs-fade api-pgs-dts api-pgs-overla
 APITESTPROGS-$(CONFIG_PGSSUB_ENCODER) += api-pgs-palette-delta api-pgs-palette-reuse
 APITESTPROGS-$(CONFIG_PGSSUB_ENCODER) += api-pgs-animation-timing api-pgs-animation-util api-pgs-coalesce api-pgs-rectsplit
 APITESTPROGS-$(CONFIG_PGSSUB_ENCODER) += api-pgs-edge
+APITESTPROGS-$(CONFIG_PGSSUB_ENCODER) += api-pgs-epoch-cache
 APITESTPROGS += $(APITESTPROGS-yes)
 
 APITESTOBJS  := $(APITESTOBJS:%=$(APITESTSDIR)%) $(APITESTPROGS:%=$(APITESTSDIR)/%-test.o)
