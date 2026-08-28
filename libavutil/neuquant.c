@@ -99,10 +99,12 @@ static void rgba_to_internal(const uint8_t *rgba, int32_t out[4])
 {
     uint32_t srgb = (uint32_t)rgba[0] << 16 | (uint32_t)rgba[1] << 8 | rgba[2];
     struct FFLabColor c = ff_srgb_u8_to_oklab_int(srgb);
-    out[0] = c.L << NETBIASSHIFT;
-    out[1] = c.a << NETBIASSHIFT;
-    out[2] = c.b << NETBIASSHIFT;
-    out[3] = ((int32_t)rgba[3] * 257) << NETBIASSHIFT;
+    /* a and b are signed: multiply, since shifting a negative value
+     * is undefined */
+    out[0] = c.L * (1 << NETBIASSHIFT);
+    out[1] = c.a * (1 << NETBIASSHIFT);
+    out[2] = c.b * (1 << NETBIASSHIFT);
+    out[3] = ((int32_t)rgba[3] * 257) * (1 << NETBIASSHIFT);
 }
 
 /* alpha-aware importance: transparent pixels have less color influence */

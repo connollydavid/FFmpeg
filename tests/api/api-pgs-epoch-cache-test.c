@@ -188,6 +188,7 @@ int main(void)
     printf("\nEpoch palette-cache test passed.\n");
 
 end:
+    av_freep(&sub.rects);
     avcodec_free_context(&ctx);
     av_free(buf);
     return ret;

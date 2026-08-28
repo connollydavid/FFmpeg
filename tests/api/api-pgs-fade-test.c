@@ -362,10 +362,10 @@ int main(void)
 
         for (step = 0; step < 5; step++) {
             /* Each step uses different alpha to force palette change */
-            pal[0] = ((step * 30 + 20) << 24) | 0x000000;
-            pal[1] = ((step * 30 + 20) << 24) | 0xFF0000;
-            pal[2] = ((step * 30 + 20) << 24) | 0x00FF00;
-            pal[3] = ((step * 30 + 20) << 24) | 0x0000FF;
+            pal[0] = ((unsigned)(step * 30 + 20) << 24) | 0x000000;
+            pal[1] = ((unsigned)(step * 30 + 20) << 24) | 0xFF0000;
+            pal[2] = ((unsigned)(step * 30 + 20) << 24) | 0x00FF00;
+            pal[3] = ((unsigned)(step * 30 + 20) << 24) | 0x0000FF;
 
             setup_subtitle(&sub, &rect, indices, pal, 400, 500, 4);
             size = avcodec_encode_subtitle(ctx, buf, buf_size, &sub);
@@ -404,6 +404,7 @@ int main(void)
     ret = 0;
 
 end:
+    av_freep(&sub.rects);
     av_free(buf);
     avcodec_free_context(&ctx);
     return ret;

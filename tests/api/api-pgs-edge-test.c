@@ -52,7 +52,9 @@ static int encode_rect(int64_t pts, int x, int y, int w, int h, int nc)
     rect.data[1]           = (uint8_t *)palette;
     rect.linesize[1]       = 4 * 256;
 
-    return avcodec_encode_subtitle(ctx, buf, buf_size, &sub);
+    int ret_size = avcodec_encode_subtitle(ctx, buf, buf_size, &sub);
+    av_freep(&sub.rects);
+    return ret_size;
 }
 
 int main(void)
