@@ -60,7 +60,7 @@ struct SubtitleEncContext {
     int quantize_method;
     char *forced_style;
     int sub_force_all;
-    int options_forwarded;    SubRenderContext *render;
+    SubRenderContext *render;
 
     Scheduler *sch;
     unsigned   sch_idx;
@@ -438,17 +438,6 @@ static int convert_text_to_bitmap(SubtitleEncContext *ctx,
                                   OutputStream *ost,
                                   AVSubtitle *sub)
 {
-    /* one-way: forward the CLI-owned choices to the encoder once */
-    if (!ctx->options_forwarded && ost && ost->enc && ost->enc->enc_ctx) {
-        ctx->options_forwarded = 1;
-        if (ctx->quantize_method >= 0)
-            av_opt_set_int(ost->enc->enc_ctx->priv_data, "quantize_method",
-                           ctx->quantize_method, 0);
-        if (ctx->forced_style && ctx->forced_style[0])
-            av_opt_set(ost->enc->enc_ctx->priv_data, "forced_style",
-                       ctx->forced_style, 0);
-    }
-
     AVCodecContext *enc_ctx = ost->enc->enc_ctx;
     const AVCodecDescriptor *enc_desc;
     enum AVQuantizeAlgorithm algo = get_quantize_algo(ctx);
