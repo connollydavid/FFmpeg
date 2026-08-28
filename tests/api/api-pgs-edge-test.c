@@ -1,11 +1,13 @@
 /*
  * Edge-case coverage for the PGS subtitle encoder:
- *  1. a duplicate-entry palette must not trip the delta encoder
+ *  1. a rect with a full 256-colour palette encodes through PCS and
+ *     PDS, exercising the PDS writer's worst-case size guard
  *  2. a zero-dimension rect encodes without crashing (output may be empty)
  *
- * KNOWN ISSUE (recorded, not yet fixed): a rect with a full 256-colour
- * palette segfaults pgssub_write_pcs on first encode; that case is
- * excluded here pending the encoder fix (plan/0022 findings).
+ * Historical note: an early draft of this test segfaulted on the
+ * full-palette case because the harness itself never allocated its
+ * output buffer; the encoder was never at fault, and the PDS writer
+ * bounds-checks the worst case before writing.
  *
  * Copyright (c) 2026 David Connolly
  */
@@ -82,14 +84,13 @@ int main(void)
     for (int k = 0; k < 64 * 64; k++)
         indices[k] = k % 256;
 
-    /* Test 1: duplicate-entry palette (all entries identical) must not
-     * trip the delta encoder. */
+    /* Test 1: full 256-entry palette through PCS and PDS. */
     size = encode_rect(90000, 100, 100, 64, 64, 256);
     if (size <= 0) {
-        fprintf(stderr, "Test 1: duplicate-palette rect failed (%d)\n", size);
+        fprintf(stderr, "Test 1: full-palette rect failed (%d)\n", size);
         return 1;
     }
-    printf("Test 1: duplicate-palette rect -- encoded %d bytes OK\n", size);
+    printf("Test 1: full-palette rect -- encoded %d bytes OK\n", size);
 
     /* Test 2: zero-dimension rect must not crash (output may be empty). */
     size = encode_rect(180000, 0, 0, 0, 0, 4);
